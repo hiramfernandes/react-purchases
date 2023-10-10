@@ -1,0 +1,16 @@
+.createExpense__placeholder {
+    background-color: #5ea394;
+}
+
+.createExpense__form {
+    margin: 2rem;
+    padding: 1rem;
+    width: calc(65% - 1rem);
+    background-color: #5ea394;
+}
+
+.createExpense__item {
+    padding: 2px;
+    margin: 2px;
+}
+
