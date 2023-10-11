@@ -23,13 +23,16 @@ const CreatePurchase = () => {
     }
 
     const submitHandler = async (event) => {
+        event.preventDefault();
+
         const createPurchase = {
-            purchaseUrl: purchaseUrl,
-            vendor: vendor,
-            amount: amount
+            purchaseDate: '2023-10-10',
+            url: purchaseUrl,
+            vendorName: vendor,
+            items: [],
+            totalAmount: amount
         };
 
-        debugger;
         fetch("http://localhost:3000/",
             {
                 headers: {
@@ -37,20 +40,10 @@ const CreatePurchase = () => {
                     'Content-Type': 'application/json'
                 },
                 method: "POST",
-                body: JSON.stringify({ 
-                    purchaseDate: '2023-10-10',
-                    vendorName: 'Bourbon',
-                    totalAmount: 123,
-                    items: [],
-                    url: 'test', 
-                })
+                body: JSON.stringify(createPurchase)
             })
             .then(function (res) { console.log(res) })
             .catch(function (res) { console.log(res) });
-
-
-        console.log(createPurchase);
-        event.preventDefault();
     }
 
     return (
