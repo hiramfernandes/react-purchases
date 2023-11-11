@@ -33,7 +33,7 @@ const CreatePurchase = () => {
             totalAmount: amount
         };
 
-        fetch("http://localhost:3000/",
+        fetch("https://aspnet-mongo.azurewebsites.net/api/Purchases/",
             {
                 headers: {
                     'Accept': 'application/json',
