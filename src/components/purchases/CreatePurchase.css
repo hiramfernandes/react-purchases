@@ -1,16 +1,27 @@
 .createExpense__placeholder {
-    background-color: #5ea394;
+    background-color: #424B54;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #FFFFFF;
 }
 
 .createExpense__form {
     margin: 2rem;
-    padding: 1rem;
+    /* padding: 1rem; */
     width: calc(65% - 1rem);
-    background-color: #5ea394;
+    background-color: #424B54;
+
 }
 
 .createExpense__item {
     padding: 2px;
-    margin: 2px;
+    margin: 1rem;
+    text-align: left;
+}
+
+.createExpense__button button {
+    color: white;
+    background-color: #93A8AC;
+    margin-top: 5px;
 }
 

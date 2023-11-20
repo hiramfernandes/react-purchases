@@ -62,7 +62,7 @@ const CreatePurchase = () => {
                     <label >Total Spent</label>
                     <input id="amount" type="number" min="0.01" step="0.01" onChange={amountChangeHandler} ></input>
                 </div>
-                <div className='createExpense__item'>
+                <div className='createExpense__button'>
                     <button type="submit">Save</button>
                 </div>
             </form>
