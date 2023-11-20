@@ -41,7 +41,7 @@ const CreatePurchase = () => {
             totalAmount: amount
         };
 
-        fetch("https://aspnet-mongo.azurewebsites.net/api/Purchases/",
+        fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/",
             {
                 headers: {
                     'Accept': 'application/json',
