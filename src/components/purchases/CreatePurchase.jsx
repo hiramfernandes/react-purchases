@@ -9,24 +9,32 @@ const CreatePurchase = () => {
 
     const purchaseUrlChangeHandler = (event) => {
         setPurchaseUrl(event.target.value);
-        console.log(purchaseUrl);
     }
 
     const vendorChangeHandler = (event) => {
         setVendor(event.target.value);
-        console.log(vendor);
     }
 
     const amountChangeHandler = (event) => {
         setAmount(event.target.value);
-        console.log(amount);
     }
 
     const submitHandler = async (event) => {
         event.preventDefault();
 
+        // Ensure data is valid
+        if (!purchaseUrl ||
+            purchaseUrl.length === 0 || 
+            !vendor || vendor.length === 0 || amount == 0) {
+            throw new Error('Invald data');
+        }
+
+        // Formate current date
+        const currentDate = new Date();
+        const dateText = currentDate.toISOString().split('T')[0];
+
         const createPurchase = {
-            purchaseDate: '2023-10-10',
+            purchaseDate: dateText,
             url: purchaseUrl,
             vendorName: vendor,
             items: [],
