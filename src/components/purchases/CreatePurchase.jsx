@@ -56,14 +56,14 @@ const CreatePurchase = () => {
 
     return (
         <div className='createExpense__placeholder'>
-            <h1>Save Purchase</h1>
+            <h1>Create Purchase</h1>
             <form onSubmit={submitHandler} className='createExpense__form'>
                 <div className='createExpense__item'>
                     <label >Purchase URL</label>
                     <input id="purchase" type="text" onChange={purchaseUrlChangeHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
-                    <label >Vendor</label>
+                    <label >Vendor Name</label>
                     <input id="vendor" type="text" onChange={vendorChangeHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
