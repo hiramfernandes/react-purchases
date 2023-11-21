@@ -19,12 +19,18 @@ const CreatePurchase = () => {
         setAmount(event.target.value);
     }
 
+    const clearValues = () => {
+        setPurchaseUrl('');
+        setAmount('');
+        setVendor('');
+    }
+
     const submitHandler = async (event) => {
         event.preventDefault();
 
         // Ensure data is valid
         if (!purchaseUrl ||
-            purchaseUrl.length === 0 || 
+            purchaseUrl.length === 0 ||
             !vendor || vendor.length === 0 || amount == 0) {
             throw new Error('Invald data');
         }
@@ -50,7 +56,10 @@ const CreatePurchase = () => {
                 method: "POST",
                 body: JSON.stringify(createPurchase)
             })
-            .then(function (res) { console.log(res) })
+            .then(function (res) { 
+                console.log(res);
+                clearValues();
+             })
             .catch(function (res) { console.log(res) });
     }
 
@@ -60,15 +69,15 @@ const CreatePurchase = () => {
             <form onSubmit={submitHandler} className='createExpense__form'>
                 <div className='createExpense__item'>
                     <label >Purchase URL</label>
-                    <input id="purchase" type="text" onChange={purchaseUrlChangeHandler} ></input>
+                    <input id="purchase" type="text" value={purchaseUrl} onChange={purchaseUrlChangeHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
                     <label >Vendor Name</label>
-                    <input id="vendor" type="text" onChange={vendorChangeHandler} ></input>
+                    <input id="vendor" type="text" value={vendor} onChange={vendorChangeHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
                     <label >Total Spent</label>
-                    <input id="amount" type="number" min="0.01" step="0.01" onChange={amountChangeHandler} ></input>
+                    <input id="amount" type="number" min="0.01" step="0.01" value={amount} onChange={amountChangeHandler} ></input>
                 </div>
                 <div className='createExpense__button'>
                     <button type="submit">Save</button>
