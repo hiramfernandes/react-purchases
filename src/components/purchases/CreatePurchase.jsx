@@ -79,7 +79,7 @@ const CreatePurchase = () => {
                 </div>
                 <div className='createExpense__item'>
                     <label >Purchase Date</label>
-                    <input id="purchaseDate" type="date" min="2023-01-01" value={amount} onChange={purchaseDateHandler} ></input>
+                    <input id="purchaseDate" type="date" min="2023-01-01" value={purchaseDate} onChange={purchaseDateHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
                     <label >Total Spent</label>
