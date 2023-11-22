@@ -29,6 +29,7 @@ const CreatePurchase = () => {
         setPurchaseUrl('');
         setAmount('');
         setVendor('');
+        setPurchaseDate('');
     }
 
     const submitHandler = async (event) => {
