@@ -4,6 +4,7 @@ import { useState } from 'react'
 
 const CreatePurchase = () => {
     const [purchaseUrl, setPurchaseUrl] = useState();
+    const [purchaseDate, setPurchaseDate] = useState();
     const [vendor, setVendor] = useState();
     const [amount, setAmount] = useState(0);
 
@@ -17,6 +18,11 @@ const CreatePurchase = () => {
 
     const amountChangeHandler = (event) => {
         setAmount(event.target.value);
+    }
+
+    const purchaseDateHandler = (event) => {
+        setPurchaseDate(event.target.value);
+        console.log(event.target.value);
     }
 
     const clearValues = () => {
@@ -35,12 +41,8 @@ const CreatePurchase = () => {
             throw new Error('Invald data');
         }
 
-        // Formate current date
-        const currentDate = new Date();
-        const dateText = currentDate.toISOString().split('T')[0];
-
         const createPurchase = {
-            purchaseDate: dateText,
+            purchaseDate: purchaseDate,
             url: purchaseUrl,
             vendorName: vendor,
             items: [],
@@ -74,6 +76,10 @@ const CreatePurchase = () => {
                 <div className='createExpense__item'>
                     <label >Vendor Name</label>
                     <input id="vendor" type="text" value={vendor} onChange={vendorChangeHandler} ></input>
+                </div>
+                <div className='createExpense__item'>
+                    <label >Purchase Date</label>
+                    <input id="purchaseDate" type="date" min="2023-01-01" value={amount} onChange={purchaseDateHandler} ></input>
                 </div>
                 <div className='createExpense__item'>
                     <label >Total Spent</label>
