@@ -7,6 +7,7 @@ const CreatePurchase = () => {
     const [purchaseDate, setPurchaseDate] = useState();
     const [vendor, setVendor] = useState();
     const [amount, setAmount] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const purchaseUrlChangeHandler = (event) => {
         setPurchaseUrl(event.target.value);
@@ -30,6 +31,7 @@ const CreatePurchase = () => {
         setAmount('');
         setVendor('');
         setPurchaseDate('');
+        setErrorMessage('');
     }
 
     const submitHandler = async (event) => {
@@ -39,7 +41,9 @@ const CreatePurchase = () => {
         if (!purchaseUrl ||
             purchaseUrl.length === 0 ||
             !vendor || vendor.length === 0 || amount == 0) {
-            throw new Error('Invald data');
+                var msg = 'Invalid data';
+                setErrorMessage(msg)
+                throw new Error(msg);
         }
 
         const createPurchase = {
@@ -63,7 +67,11 @@ const CreatePurchase = () => {
                 console.log(res);
                 clearValues();
             })
-            .catch(function (res) { console.log(res) });
+            .catch(function (res) { 
+                console.log(res);
+                debugger;
+                setErrorMessage(res.message);
+            });
     }
 
     return (
@@ -91,6 +99,13 @@ const CreatePurchase = () => {
                         <button type="submit">Save</button>
                     </div>
                 </form>
+                {errorMessage.length > 0 &&
+                    <div className='error-dialog'>
+                        <p>
+                            {errorMessage}
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     );
