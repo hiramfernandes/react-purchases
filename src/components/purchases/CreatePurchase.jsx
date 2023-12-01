@@ -1,12 +1,15 @@
 import './CreatePurchase.css';
 
 import { useState } from 'react'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreatePurchase = () => {
     const [purchaseUrl, setPurchaseUrl] = useState();
     const [purchaseDate, setPurchaseDate] = useState();
     const [vendor, setVendor] = useState();
     const [amount, setAmount] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const purchaseUrlChangeHandler = (event) => {
         setPurchaseUrl(event.target.value);
@@ -30,6 +33,7 @@ const CreatePurchase = () => {
         setAmount('');
         setVendor('');
         setPurchaseDate('');
+        setErrorMessage('');
     }
 
     const submitHandler = async (event) => {
@@ -39,7 +43,9 @@ const CreatePurchase = () => {
         if (!purchaseUrl ||
             purchaseUrl.length === 0 ||
             !vendor || vendor.length === 0 || amount == 0) {
-            throw new Error('Invald data');
+                var msg = 'Invalid data';
+                setErrorMessage(msg)
+                throw new Error(msg);
         }
 
         const createPurchase = {
@@ -61,13 +67,18 @@ const CreatePurchase = () => {
             })
             .then(function (res) {
                 console.log(res);
+                toast.success("Purchase saved successfully");
                 clearValues();
             })
-            .catch(function (res) { console.log(res) });
+            .catch(function (res) { 
+                console.log(res);
+                toast.error(res.message);
+            });
     }
 
     return (
-        <div className='main'>
+        <div className='main'>]
+            <ToastContainer />
             <div className='createExpense__placeholder'>
                 <h1>Create Purchase</h1>
                 <form onSubmit={submitHandler} className='createExpense__form'>
@@ -91,6 +102,13 @@ const CreatePurchase = () => {
                         <button type="submit">Save</button>
                     </div>
                 </form>
+                {errorMessage.length > 0 &&
+                    <div className='error-dialog'>
+                        <p>
+                            {errorMessage}
+                        </p>
+                    </div>
+                }
             </div>
         </div>
     );
