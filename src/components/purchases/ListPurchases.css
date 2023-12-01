@@ -1,0 +1,14 @@
+.purchase-item__content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-item__vendor-image img {
+    width: 50px;
+    height: auto;
+    border-radius: 20%;
+}
+
+.purchase-item__vendor-image {
+    text-align: left;
+}

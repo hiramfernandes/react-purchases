@@ -56,6 +56,10 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+li {
+  list-style-type: none;
+}
+
 .center {
   text-align: center;
   display: flex;
