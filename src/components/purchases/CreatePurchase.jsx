@@ -34,6 +34,7 @@ const CreatePurchase = () => {
         setVendor('');
         setPurchaseDate('');
         setErrorMessage('');
+        setErrorMessage('');
     }
 
     const submitHandler = async (event) => {
@@ -43,6 +44,9 @@ const CreatePurchase = () => {
         if (!purchaseUrl ||
             purchaseUrl.length === 0 ||
             !vendor || vendor.length === 0 || amount == 0) {
+                var msg = 'Invalid data';
+                setErrorMessage(msg)
+                throw new Error(msg);
                 var msg = 'Invalid data';
                 setErrorMessage(msg)
                 throw new Error(msg);
