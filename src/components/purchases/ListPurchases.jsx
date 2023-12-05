@@ -1,6 +1,12 @@
 import './ListPurchases.css';
 
 const ListPurchases = (props) => {
+
+    const getPurchases = async () => {
+        const response = await fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/");
+        console.log(response);
+    }
+
     if (props.items.length === 0) {
         return <div className="center">
             <h2>No purchases found.</h2>
@@ -24,7 +30,7 @@ const ListPurchases = (props) => {
                     </li >
                 ))}
             </ul >
-        </div >
+        </div>
     )
 }
 
