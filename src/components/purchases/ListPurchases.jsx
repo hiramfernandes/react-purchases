@@ -2,9 +2,18 @@ import './ListPurchases.css';
 
 const ListPurchases = (props) => {
 
+    // TODO: Perform this call through Axios
     const getPurchases = async () => {
         const response = await fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/");
-        console.log(response);
+        if (response.ok) {
+            debugger;
+            var receivedData = await response.json();
+            console.log(receivedData);
+
+            if (receivedData && receivedData.length > 0) {
+                props.items = receivedData;
+            }
+        }
     }
 
     if (props.items.length === 0) {
@@ -30,6 +39,9 @@ const ListPurchases = (props) => {
                     </li >
                 ))}
             </ul >
+            <div>
+                <button type="button" onClick={getPurchases}>Get Purchases</button>
+            </div>    
         </div>
     )
 }

@@ -81,7 +81,7 @@ const CreatePurchase = () => {
     }
 
     return (
-        <div className='main'>]
+        <div className='main'>
             <ToastContainer />
             <div className='createExpense__placeholder'>
                 <h1>Create Purchase</h1>
