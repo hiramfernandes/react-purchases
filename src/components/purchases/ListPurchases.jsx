@@ -1,9 +1,19 @@
 import './ListPurchases.css';
+import axios from 'axios';
 
 const ListPurchases = (props) => {
 
     // TODO: Perform this call through Axios
     const getPurchases = async () => {
+        axios.get("https://aspnet-mongo.azurewebsites.net/api/purchases/")
+            .then(function (result) {
+                debugger;
+                console.log(result.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
         const response = await fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/");
         if (response.ok) {
             debugger;
