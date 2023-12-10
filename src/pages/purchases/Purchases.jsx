@@ -2,27 +2,37 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 import ListPurchases from "../../components/purchases/ListPurchases";
+import LoadingSpinner from '../../shared/UiElements/LoadingSpinner';
 
 const Purchases = () => {
   const [loadedPurchases, setLoadedPurchases] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    axios
-      .get("https://aspnet-mongo.azurewebsites.net/api/purchases/")
-      .then(function (response) {
-        debugger;
-        console.log(response.data);
+
+    const sendRequest = async () => {
+      setIsLoading(true);
+      try {
+        const response = await axios.get("https://aspnet-mongo.azurewebsites.net/api/purchases/");
         setLoadedPurchases(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+      } catch (error) {
+        console.log(error.message);
+      }
+      setIsLoading(false);
+    }
+
+    sendRequest();
   }, []);
 
   return (
     <React.Fragment>
-      <ListPurchases items={loadedPurchases} />
-      </React.Fragment>
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && loadedPurchases && <ListPurchases items={loadedPurchases} />}
+    </React.Fragment>
   );
 };
 

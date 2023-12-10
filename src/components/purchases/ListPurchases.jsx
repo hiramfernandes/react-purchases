@@ -1,5 +1,4 @@
 import './ListPurchases.css';
-import axios from 'axios';
 
 const ListPurchases = (props) => {
 
