@@ -25,13 +25,13 @@
   .nav-links a:active,
   .nav-links a.active {
     background: #60656F;
-    border-color: #292929;
-    color: #292929;
+    border-color: white;
+    color: white;
   }
   
   .nav-links button {
     cursor: pointer;
-    border: 1px solid #292929;
+    border: 1px solid white;
     color: #292929;
     background: transparent;
     padding: 0.5rem;

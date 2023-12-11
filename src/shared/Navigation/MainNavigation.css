@@ -29,6 +29,7 @@
 
 .main-navigation__header-nav {
     display: none;
+    padding-right: 15px;
 }
 
 .main-navigation__drawer-nav {
