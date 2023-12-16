@@ -47,9 +47,6 @@ const CreatePurchase = () => {
                 var msg = 'Invalid data';
                 setErrorMessage(msg)
                 throw new Error(msg);
-                var msg = 'Invalid data';
-                setErrorMessage(msg)
-                throw new Error(msg);
         }
 
         const createPurchase = {
