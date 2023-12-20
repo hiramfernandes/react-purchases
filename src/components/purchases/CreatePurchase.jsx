@@ -1,22 +1,45 @@
 import './CreatePurchase.css';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
+import axios from "axios";
+import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CreatePurchase = () => {
     const [purchaseUrl, setPurchaseUrl] = useState();
     const [purchaseDate, setPurchaseDate] = useState();
-    const [vendor, setVendor] = useState();
+    const [vendorName, setVendorName] = useState();
+    const [vendorId, setVendorId] = useState();
     const [amount, setAmount] = useState(0);
+    const [loadedVendors, setLoadedVendors] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+
+    useEffect(() => {
+
+        const sendRequest = async () => {
+            try {
+                const response = await axios.get("https://aspnet-mongo.azurewebsites.net/api/vendors/");
+                let responseFormatted = response.data.map(function (v) {
+                    return { label: v.name, value: v.id };
+                })
+                setLoadedVendors(responseFormatted);
+            } catch (error) {
+                console.log(error.message);
+            }
+        }
+
+        sendRequest();
+    }, []);
 
     const purchaseUrlChangeHandler = (event) => {
         setPurchaseUrl(event.target.value);
     }
 
-    const vendorChangeHandler = (event) => {
-        setVendor(event.target.value);
+    const handleVendorSelection = (selectedValue) => {
+        console.log(`Vendor Name: ${selectedValue.label} - ID: ${selectedValue.value}`);
+        setVendorId(selectedValue.value);
+        setVendorName(selectedValue.label);
     }
 
     const amountChangeHandler = (event) => {
@@ -31,7 +54,8 @@ const CreatePurchase = () => {
     const clearValues = () => {
         setPurchaseUrl('');
         setAmount('');
-        setVendor('');
+        setVendorName('');
+        setVendorId('');
         setPurchaseDate('');
         setErrorMessage('');
         setErrorMessage('');
@@ -43,19 +67,23 @@ const CreatePurchase = () => {
         // Ensure data is valid
         if (!purchaseUrl ||
             purchaseUrl.length === 0 ||
-            !vendor || vendor.length === 0 || amount == 0) {
-                var msg = 'Invalid data';
-                setErrorMessage(msg)
-                throw new Error(msg);
+            !vendorName || vendorName.length === 0 ||
+            !vendorId || vendorId.length === 0 || amount == 0) {
+            var msg = 'Invalid data';
+            setErrorMessage(msg)
+            throw new Error(msg);
         }
 
         const createPurchase = {
             purchaseDate: purchaseDate,
             url: purchaseUrl,
-            vendorName: vendor,
+            vendorName,
+            vendorId: vendorId,
             items: [],
             totalAmount: amount
         };
+
+        console.log(createPurchase);
 
         fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/",
             {
@@ -71,7 +99,7 @@ const CreatePurchase = () => {
                 toast.success("Purchase saved successfully");
                 clearValues();
             })
-            .catch(function (res) { 
+            .catch(function (res) {
                 console.log(res);
                 toast.error(res.message);
             });
@@ -88,8 +116,8 @@ const CreatePurchase = () => {
                         <input id="purchase" type="text" value={purchaseUrl} onChange={purchaseUrlChangeHandler} ></input>
                     </div>
                     <div className='createExpense__item'>
-                        <label >Vendor Name</label>
-                        <input id="vendor" type="text" value={vendor} onChange={vendorChangeHandler} ></input>
+                        <label >Vendor</label>
+                        <Select options={loadedVendors} onChange={handleVendorSelection} />
                     </div>
                     <div className='createExpense__item'>
                         <label >Purchase Date</label>
