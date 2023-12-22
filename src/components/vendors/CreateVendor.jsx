@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { ToastContainer, toast }  from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import './CreateVendor.css';
+
 const CreateVendor = () => {
     const [name, setName] = useState();
     const [location, setLocation] = useState();
@@ -63,7 +65,7 @@ const CreateVendor = () => {
     return (
         <div className="main">
             <ToastContainer />
-            <div className="create-vendor__main-header">
+            <div className="createExpense__placeholder">
                 <h1> Create Vendor </h1>
                 <form onSubmit={submitHandler} className='create-vendor__form'>
                     <div className='create-vendor__item'>

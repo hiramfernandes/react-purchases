@@ -1,0 +1,25 @@
+.createExpense__placeholder {
+    background-color: #424B54;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: #FFFFFF;
+}
+
+.create-vendor__form {
+    margin: 2rem;
+    /* padding: 1rem; */
+    width: calc(65% - 1rem);
+    background-color: #424B54;
+}
+
+.create-vendor__item {
+    padding: 2px;
+    margin: 1rem;
+    text-align: left;
+}
+
+.create-vendor__button button {
+    color: white;
+    background-color: #93A8AC;
+    margin-top: 5px;
+}
