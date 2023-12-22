@@ -15,6 +15,21 @@ const CreatePurchase = () => {
     const [loadedVendors, setLoadedVendors] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
+    const customStyles = {
+        option: provided => ({
+          ...provided,
+          color: 'black'
+        }),
+        control: provided => ({
+          ...provided,
+          color: 'black'
+        }),
+        singleValue: provided => ({
+          ...provided,
+          color: 'black'
+        })
+      }
+
     useEffect(() => {
 
         const sendRequest = async () => {
@@ -117,7 +132,7 @@ const CreatePurchase = () => {
                     </div>
                     <div className='createExpense__item'>
                         <label >Vendor</label>
-                        <Select options={loadedVendors} onChange={handleVendorSelection} />
+                        <Select styles={customStyles} options={loadedVendors} onChange={handleVendorSelection} />
                     </div>
                     <div className='createExpense__item'>
                         <label >Purchase Date</label>
