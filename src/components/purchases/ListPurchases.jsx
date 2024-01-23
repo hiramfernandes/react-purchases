@@ -16,7 +16,7 @@ const ListPurchases = (props) => {
                     <li key={purchase.id} >
                         <div className="purchase-item__content">
                             <div className="purchase-item__vendor-image">
-                                <img src="https://pbs.twimg.com/profile_images/1280601592350289921/QHXBK1ns_400x400.jpg" />
+                                <img src={purchase.vendorLogoUrl} />
                             </div>
                             <div className="purchase-item__info">
                                 Total: {purchase.totalAmount} {purchase.vendorName} {purchase.purchaseDate.split('T')[0]}
