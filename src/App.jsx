@@ -5,6 +5,7 @@ import CreatePurchase from './components/purchases/CreatePurchase';
 import Purchases from './pages/purchases/Purchases';
 import MainNavigation from './shared/Navigation/MainNavigation';
 import CreateVendor from './components/vendors/CreateVendor';
+import CreateVendorModal from './components/vendors/CreateVendorModal';
 
 function App() {
 
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/vendor" exact >
             <CreateVendor />
+          </Route>
+          <Route path="/modalvendor" exact >
+            <CreateVendorModal />
           </Route>
           <Redirect to="/purchases" />
         </Switch>
