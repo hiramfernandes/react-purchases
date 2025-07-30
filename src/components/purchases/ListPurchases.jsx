@@ -1,4 +1,5 @@
 import './ListPurchases.css';
+import fallbackImage from '/vite.svg';
 
 const ListPurchases = (props) => {
 
@@ -16,10 +17,22 @@ const ListPurchases = (props) => {
                     <li key={purchase.id} >
                         <div className="purchase-item__content">
                             <div className="purchase-item__vendor-image">
-                                <img src={purchase.vendorLogoUrl} />
+                                <img src={purchase.vendorLogoUrl ?
+                                    purchase.vendorLogoUrl :
+                                    fallbackImage} />
                             </div>
                             <div className="purchase-item__info">
-                                Total: {purchase.totalAmount} {purchase.vendorName} {purchase.purchaseDate.split('T')[0]}
+                                <span className='purchase-item__descrption'>
+                                    {purchase.vendorName}
+                                </span>
+                                <br/>
+                                <span>
+                                    {purchase.purchaseDate.split('T')[0]}
+                                </span>
+                                <span>
+                                    Valor:
+                                    <a href={purchase.purchaseUrl} target='_blank' >{purchase.totalAmount}</a><br />
+                                </span>
                             </div>
                         </div>
                     </li >

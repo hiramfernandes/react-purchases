@@ -12,3 +12,8 @@
 .purchase-item__vendor-image {
     text-align: left;
 }
+
+.purchase-item__descrption {
+  color: #6699CC;
+  font-weight: bold;
+}
