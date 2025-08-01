@@ -7,11 +7,13 @@ import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CreatePurchase = () => {
-    const [purchaseUrl, setPurchaseUrl] = useState();
-    const [purchaseDate, setPurchaseDate] = useState();
+    const defaultDate = new Date().toISOString().split("T")[0];
+
+    const [purchaseUrl, setPurchaseUrl] = useState('');
+    const [purchaseDate, setPurchaseDate] = useState(defaultDate);
     const [vendorName, setVendorName] = useState();
     const [vendorId, setVendorId] = useState();
-    const [amount, setAmount] = useState(0);
+    const [amount, setAmount] = useState('');
     const [loadedVendors, setLoadedVendors] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 

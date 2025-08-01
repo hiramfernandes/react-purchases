@@ -2,13 +2,21 @@ import { useState } from "react";
 
 import classes from './CreateVendorModal.module.css';
 
-function CreateVendorModal({ onCancel, onAddVendor }) {
+function CreateVendorModal({ onCancel }) {
     const [enteredName, setEnteredName] = useState("");
     const [enteredLocation, setEnteredLocation] = useState("");
     const [enteredLogo, setEnteredLogo] = useState("");
 
     function nameChangeHandler(event) {
         setEnteredName(event.target.value);
+    }
+
+    function onAddVendor(postData) {
+        console.log(postData)
+    }
+
+    function onCancel() {
+        console.log('Cancelled')
     }
 
     function locationChangeHandler(event) {
@@ -27,8 +35,24 @@ function CreateVendorModal({ onCancel, onAddVendor }) {
             logoUrl: enteredLogo
         };
 
-        onAddVendor(postData);
-        onCancel();
+        fetch("https://aspnet-mongo.azurewebsites.net/api/Vendors/",
+            {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(postData)
+            })
+            .then(function (res) {
+                console.log(res);
+                toast.success("Vendor saved successfully");
+                clearValues();
+            })
+            .catch(function (res) {
+                console.log(res);
+                toast.error(res.message);
+            });
     }
 
     return (
