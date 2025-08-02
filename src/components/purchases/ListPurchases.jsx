@@ -16,13 +16,13 @@ const ListPurchases = (props) => {
                 {props.items.map(purchase => (
                     <li key={purchase.id} >
                         <div className="purchase-item__content">
-                            <div className="purchase-item__vendor-image">
+                            <div className="purchase-item__vendor-image m-1">
                                 <img src={purchase.vendorLogoUrl ?
                                     purchase.vendorLogoUrl :
                                     fallbackImage} />
                             </div>
-                            <div className="purchase-item__info">
-                                <span className='purchase-item__descrption'>
+                            <div className="purchase-item__info m-1 text-center">
+                                <span className='purchase-item__descrption '>
                                     {purchase.vendorName}
                                 </span>
                                 <br/>
@@ -30,7 +30,9 @@ const ListPurchases = (props) => {
                                     {purchase.purchaseDate.split('T')[0]}
                                 </span>
                                 <span>
-                                    Valor:
+                                    <label className='m-1'>
+                                        Total
+                                    </label>
                                     <a href={purchase.purchaseUrl} target='_blank' >{purchase.totalAmount}</a><br />
                                 </span>
                             </div>
