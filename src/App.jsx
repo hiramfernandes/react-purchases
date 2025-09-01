@@ -26,6 +26,9 @@ function App() {
           <Route path="/modalvendor" exact >
             <CreateVendorModal />
           </Route>
+          <Route path="/vendors" exact >
+            <CreateVendor />
+          </Route>
           <Redirect to="/purchases" />
         </Switch>
       </main>
