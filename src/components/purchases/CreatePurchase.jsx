@@ -33,7 +33,6 @@ const CreatePurchase = () => {
       }
 
     useEffect(() => {
-
         const sendRequest = async () => {
             try {
                 const response = await axios.get("https://aspnet-mongo.azurewebsites.net/api/vendors/");
@@ -133,8 +132,12 @@ const CreatePurchase = () => {
                         <input id="purchase" type="text" value={purchaseUrl} onChange={purchaseUrlChangeHandler} ></input>
                     </div>
                     <div className='createExpense__item'>
-                        <label >Vendor</label>
+                        <label>Vendor</label>
+                        <div className='createExpense__item_line'>
+
                         <Select styles={customStyles} options={loadedVendors} onChange={handleVendorSelection} />
+                        <button className='btn btn-secondary' onClick={() => alert('+')} >+</button>
+                        </div>
                     </div>
                     <div className='createExpense__item'>
                         <label >Purchase Date</label>

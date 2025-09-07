@@ -18,6 +18,11 @@
     text-align: left;
 }
 
+.createExpense__item_line {
+    display: flex;
+    vertical-align: middle;
+}
+
 .createExpense__button button {
     color: white;
     background-color: #93A8AC;
