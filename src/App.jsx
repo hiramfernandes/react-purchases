@@ -1,6 +1,9 @@
 import './App.css'
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
+
 import CreatePurchase from './components/purchases/CreatePurchase';
 import Purchases from './pages/purchases/Purchases';
 import MainNavigation from './shared/Navigation/MainNavigation';

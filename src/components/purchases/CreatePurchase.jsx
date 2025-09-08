@@ -16,21 +16,22 @@ const CreatePurchase = () => {
     const [amount, setAmount] = useState('');
     const [loadedVendors, setLoadedVendors] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
 
     const customStyles = {
         option: provided => ({
-          ...provided,
-          color: 'black'
+            ...provided,
+            color: 'black'
         }),
         control: provided => ({
-          ...provided,
-          color: 'black'
+            ...provided,
+            color: 'black'
         }),
         singleValue: provided => ({
-          ...provided,
-          color: 'black'
+            ...provided,
+            color: 'black'
         })
-      }
+    }
 
     useEffect(() => {
         const sendRequest = async () => {
@@ -135,8 +136,12 @@ const CreatePurchase = () => {
                         <label>Vendor</label>
                         <div className='createExpense__item_line'>
 
-                        <Select styles={customStyles} options={loadedVendors} onChange={handleVendorSelection} />
-                        <button className='btn btn-secondary' onClick={() => alert('+')} >+</button>
+                            <Select styles={customStyles} options={loadedVendors} onChange={handleVendorSelection} />
+                            <button
+                                className='btn btn-secondary'
+                                onClick={() => setShowModal(true)}>
+                                +
+                            </button>
                         </div>
                     </div>
                     <div className='createExpense__item'>
@@ -158,6 +163,27 @@ const CreatePurchase = () => {
                         </p>
                     </div>
                 }
+
+                {/* Bootstrap Modal */}
+                {showModal && (
+                    <div className="modal fade show d-block" tabIndex="-1">
+                        <div className="modal-dialog">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title">New Vendor</h5>
+                                    <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
+                                </div>
+                                <div className="modal-body">
+                                    <p>You can add custom inputs or forms inside this modal.</p>
+                                </div>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
+                                    <button type="button" className="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
             </div>
         </div>
     );
