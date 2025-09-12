@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import axios from "axios";
 import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
+import CreateVendor from '../vendors/CreateVendorModal';
 
 const CreatePurchase = () => {
     const defaultDate = new Date().toISOString().split("T")[0];
@@ -174,11 +175,7 @@ const CreatePurchase = () => {
                                     <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
                                 </div>
                                 <div className="modal-body">
-                                    <p>You can add custom inputs or forms inside this modal.</p>
-                                </div>
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                                    <button type="button" className="btn btn-primary">Save changes</button>
+                                    <p><CreateVendor /></p>
                                 </div>
                             </div>
                         </div>
