@@ -127,7 +127,7 @@ const CreatePurchase = () => {
         <div className='main'>
             <ToastContainer />
             <div className='createExpense__placeholder'>
-                <h1>Create Purchase</h1>
+                <h2>Create Purchase</h2>
                 <form onSubmit={submitHandler} className='createExpense__form'>
                     <div className='createExpense__item'>
                         <label >Purchase URL</label>
