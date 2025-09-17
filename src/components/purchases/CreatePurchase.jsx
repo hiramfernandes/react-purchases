@@ -1,11 +1,12 @@
 import './CreatePurchase.css';
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import axios from "axios";
 import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
-import CreateVendor from '../vendors/CreateVendorModal';
+
+import NewVendorModal from '../vendors/NewVendorModal';
 
 const CreatePurchase = () => {
     const defaultDate = new Date().toISOString().split("T")[0];
@@ -17,7 +18,8 @@ const CreatePurchase = () => {
     const [amount, setAmount] = useState('');
     const [loadedVendors, setLoadedVendors] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
-    const [showModal, setShowModal] = useState(false);
+
+    const dialog = useRef();
 
     const customStyles = {
         option: provided => ({
@@ -126,6 +128,7 @@ const CreatePurchase = () => {
     return (
         <div className='main'>
             <ToastContainer />
+            <NewVendorModal ref={dialog} />
             <div className='createExpense__placeholder'>
                 <h2>Create Purchase</h2>
                 <form onSubmit={submitHandler} className='createExpense__form'>
@@ -140,7 +143,8 @@ const CreatePurchase = () => {
                             <Select styles={customStyles} options={loadedVendors} onChange={handleVendorSelection} />
                             <button
                                 className='btn btn-secondary'
-                                onClick={() => setShowModal(true)}>
+                                onClick={() => dialog.current.showModal()}
+                            >
                                 +
                             </button>
                         </div>
@@ -164,23 +168,6 @@ const CreatePurchase = () => {
                         </p>
                     </div>
                 }
-
-                {/* Bootstrap Modal */}
-                {showModal && (
-                    <div className="modal fade show d-block" tabIndex="-1">
-                        <div className="modal-dialog">
-                            <div className="modal-content">
-                                <div className="modal-header">
-                                    <h5 className="modal-title">New Vendor</h5>
-                                    <button type="button" className="btn-close" onClick={() => setShowModal(false)}></button>
-                                </div>
-                                <div className="modal-body">
-                                    <p><CreateVendor /></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );
