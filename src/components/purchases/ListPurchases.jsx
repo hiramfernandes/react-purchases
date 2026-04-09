@@ -23,7 +23,7 @@ const ListPurchases = (props) => {
                             </div>
                             <div className="purchase-item__info m-1 text-center">
                                 <span className='purchase-item__descrption '>
-                                    {purchase.vendorName}
+                                    {purchase.vendorName.slice(0, 18)}
                                 </span>
                                 <br/>
                                 <span>
