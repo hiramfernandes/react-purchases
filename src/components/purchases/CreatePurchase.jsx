@@ -2,7 +2,6 @@ import './CreatePurchase.css';
 
 import { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
-import axios from "axios";
 import Select from 'react-select';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -36,11 +35,22 @@ const CreatePurchase = () => {
         })
     }
 
+    const baseApiUrl = 'https://aspnet-mongo.azurewebsites.net';
+    const url = `${baseApiUrl}/api/vendors/`;
+
     useEffect(() => {
         const sendRequest = async () => {
             try {
-                const response = await axios.get("https://aspnet-mongo.azurewebsites.net/api/vendors/");
-                let responseFormatted = response.data.map(function (v) {
+                const vendorResponse = await fetch(
+                    url, {
+                    headers: {
+                        'accept': 'text/plain'
+                    }
+                });
+
+                const response = await vendorResponse.json();
+
+                let responseFormatted = response.map(function (v) {
                     return { label: v.name, value: v.id };
                 })
                 setLoadedVendors(responseFormatted);
