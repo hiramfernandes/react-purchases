@@ -1,4 +1,5 @@
-const url = 'https://aspnet-mongo.azurewebsites.net/auth/login';
+const baseApiUrl = import.meta.env.VITE_API_URL;
+const url = `${baseApiUrl}/auth/login`;
 
 export async function login(email, password) {
     const data = {

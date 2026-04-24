@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ToastContainer, toast }  from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import './CreateVendor.css';
@@ -18,21 +18,23 @@ const CreateVendor = () => {
             logoUrl
         };
 
-        fetch("https://aspnet-mongo.azurewebsites.net/api/Vendors/",
-            {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(createVendor)
-            })
+        const baseApiUrl = import.meta.env.VITE_API_URL;
+        const url = `${baseApiUrl}/api/vendors`
+
+        fetch(url, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(createVendor)
+        })
             .then(function (res) {
                 console.log(res);
                 toast.success("Vendor saved successfully");
                 clearValues();
             })
-            .catch(function (res) { 
+            .catch(function (res) {
                 console.log(res);
                 toast.error(res.message);
             });

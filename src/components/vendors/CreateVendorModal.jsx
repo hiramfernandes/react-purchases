@@ -7,6 +7,8 @@ function CreateVendorModal({ onCancel }) {
     const [enteredLocation, setEnteredLocation] = useState("");
     const [enteredLogo, setEnteredLogo] = useState("");
 
+    const baseApiUrl = import.meta.env.VITE_API_URL;
+
     function nameChangeHandler(event) {
         setEnteredName(event.target.value);
     }
@@ -35,24 +37,25 @@ function CreateVendorModal({ onCancel }) {
             logoUrl: enteredLogo
         };
 
-        fetch("https://aspnet-mongo.azurewebsites.net/api/Vendors/",
-            {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(postData)
-            })
-            .then(function (res) {
-                console.log(res);
-                toast.success("Vendor saved successfully");
-                clearValues();
-            })
-            .catch(function (res) {
-                console.log(res);
-                toast.error(res.message);
-            });
+        const vendorsUrl = `${baseApiUrl}/api/Vendors/`;
+
+        fetch(vendorsUrl, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(postData)
+        })
+        .then(function (res) {
+            console.log(res);
+            toast.success("Vendor saved successfully");
+            clearValues();
+        })
+        .catch(function (res) {
+            console.log(res);
+            toast.error(res.message);
+        });
     }
 
     return (

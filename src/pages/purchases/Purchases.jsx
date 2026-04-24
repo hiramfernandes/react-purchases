@@ -8,7 +8,8 @@ import LoadingSpinner from '../../shared/UiElements/LoadingSpinner';
 const Purchases = () => {
   const [loadedPurchases, setLoadedPurchases] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const baseApiUrl = 'https://aspnet-mongo.azurewebsites.net';
+
+  const baseApiUrl = import.meta.env.VITE_API_URL;
   const url = `${baseApiUrl}/api/purchases/`;
 
   useEffect(() => {
@@ -26,7 +27,6 @@ const Purchases = () => {
 
         const response = await purchasesResponse.json();
 
-        // await axios.get("https://aspnet-mongo.azurewebsites.net/api/purchases/");
         setLoadedPurchases(response);
       } catch (error) {
         console.log(error.message);

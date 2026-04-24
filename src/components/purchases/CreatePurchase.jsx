@@ -1,9 +1,9 @@
 import './CreatePurchase.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { useState, useEffect, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify'
 import Select from 'react-select';
-import 'react-toastify/dist/ReactToastify.css';
 
 import NewVendorModal from '../vendors/NewVendorModal';
 
@@ -35,7 +35,7 @@ const CreatePurchase = () => {
         })
     }
 
-    const baseApiUrl = 'https://aspnet-mongo.azurewebsites.net';
+    const baseApiUrl = import.meta.env.VITE_API_URL;
     const url = `${baseApiUrl}/api/vendors/`;
 
     useEffect(() => {
@@ -115,24 +115,25 @@ const CreatePurchase = () => {
 
         console.log(createPurchase);
 
-        fetch("https://aspnet-mongo.azurewebsites.net/api/purchases/",
-            {
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(createPurchase)
-            })
-            .then(function (res) {
-                console.log(res);
-                toast.success("Purchase saved successfully");
-                clearValues();
-            })
-            .catch(function (res) {
-                console.log(res);
-                toast.error(res.message);
-            });
+        const purchasesUrl = `${baseApiUrl}/api/purchases/`;
+
+        fetch(purchasesUrl, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(createPurchase)
+        })
+        .then(function (res) {
+            console.log(res);
+            toast.success("Purchase saved successfully");
+            clearValues();
+        })
+        .catch(function (res) {
+            console.log(res);
+            toast.error(res.message);
+        });
     }
 
     return (
