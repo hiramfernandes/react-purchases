@@ -17,11 +17,18 @@ const Purchases = () => {
     const sendRequest = async () => {
       setIsLoading(true);
       try {
+        const email = import.meta.env.VITE_AUTH_EMAIL;
+        const pwd = import.meta.env.VITE_AUTH_PWD;
+
+        const loginResponse = await login(email, pwd);
+        const token = loginResponse.accessToken;
+
         const purchasesResponse = await fetch(
           url, {
           method: 'GET',
           headers: {
-            'accept': 'text/plain'
+            'accept': 'text/plain',
+            'authorization': `Bearer ${token}`
           }
         });
 
