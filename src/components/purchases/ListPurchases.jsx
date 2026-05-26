@@ -11,7 +11,7 @@ const ListPurchases = (props) => {
 
     return (
         <div className='createExpense__placeholder'>
-            <h1>Purchases</h1>
+            <h1 className='createExpense__title'>Summary</h1>
             <ul>
                 {props.items.map(purchase => (
                     <li key={purchase.id} >

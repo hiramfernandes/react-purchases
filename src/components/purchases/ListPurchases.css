@@ -17,3 +17,9 @@
   color: #6699CC;
   font-weight: bold;
 }
+
+.createExpense__title {
+    color: #808183;
+    padding: 12px 0px 12px 0px;
+    font-weight: bold;
+}

@@ -13,10 +13,7 @@ const NavLinks = props => {
                 <NavLink to="/purchases">All Purchases</NavLink>
             </li>
             <li>
-                <NavLink to="/auth">Authenticate</NavLink>
-            </li>
-            <li>
-                <NavLink to="/vendors">Add vendor</NavLink>
+                <NavLink to="/receipts">Receipts</NavLink>
             </li>
         </ul>
     );

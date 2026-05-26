@@ -1,3 +1,9 @@
 .container {
-    border: 1px solid blue;
+    padding: 20px 10px 20px 10px;
+}
+
+.receipts_title {
+    color: #424B54;
+    font-weight: bold;
+    padding: 10px 0px 10px 0px;
 }
