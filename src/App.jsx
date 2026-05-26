@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 
 import CreatePurchase from './components/purchases/CreatePurchase';
 import Purchases from './pages/purchases/Purchases';
+import Receipts from './pages/receipts/Receipts';
 import MainNavigation from './shared/Navigation/MainNavigation';
 import CreateVendor from './components/vendors/CreateVendor';
 import CreateVendorModal from './components/vendors/CreateVendorModal';
@@ -28,6 +29,9 @@ function App() {
           </Route>
           <Route path="/vendors" exact >
             <CreateVendor />
+          </Route>
+          <Route path="/receipts" exact>
+            <Receipts />
           </Route>
           <Redirect to="/purchases" />
         </Switch>
