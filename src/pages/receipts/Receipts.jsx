@@ -64,7 +64,7 @@ const Receipts = () => {
                             {loadedReceipts.map(receipt => (
                                 <tr key={receipt.url}>
                                     <td>{receipt.receivedDate}</td>
-                                    <td><a href={receipt.url} target='blank'>{receipt.url.slice(0, 50)}</a></td>
+                                    <td><a href={receipt.url} target="_blank" rel="noopener noreferrer">{receipt.url.slice(0, 50)}</a></td>
                                     <td>{receipt.processed ? 'OK' : 'No'}</td>
                                     <td>{receipt.processingMessage}</td>
                                 </tr>
