@@ -3,6 +3,7 @@ import './Receipts.css'
 import React, { useEffect, useState } from "react";
 import { login } from '../../shared/Login/auth.js';
 import LoadingSpinner from '../../shared/UiElements/LoadingSpinner';
+import ListReceipts from '../../components/receipts/ListReceipts';
 
 const Receipts = () => {
 
@@ -52,26 +53,7 @@ const Receipts = () => {
             {!isLoading && loadedReceipts &&
                 <div className="container">
                     <h1 className='receipts_title'>Receipts</h1>
-                    <table className="table table-striped  table-secondary">
-                        <thead>
-                            <tr>
-                                <th>Received Date</th>
-                                <th>URL</th>
-                                <th>Status</th>
-                                <th>Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {loadedReceipts.map(receipt => (
-                                <tr  className='table-light ' key={receipt.url}>
-                                    <td>{receipt.receivedDate}</td>
-                                    <td><a href={receipt.url} target="_blank" rel="noopener noreferrer">{receipt.url.slice(0, 50)}</a></td>
-                                    <td>{receipt.processed ? 'OK' : 'No'}</td>
-                                    <td>{receipt.processingMessage}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                     <ListReceipts items={loadedReceipts} />
                 </div>
             }
         </React.Fragment>
