@@ -7,3 +7,48 @@
     font-weight: bold;
     padding: 10px 0px 10px 0px;
 }
+
+/* Toolbar */
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .toolbar input[type="text"] {
+      flex: 1;
+      min-width: 180px;
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid #7d9ea3;
+      background: #a8bfc3;
+      color: #2c3e42;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .toolbar input[type="text"]::placeholder { color: #4a6568; }
+    .toolbar input[type="text"]:focus { border-color: #3d5a5e; }
+
+    .toolbar select {
+      padding: 8px 12px;
+      font-size: 13px;
+      border-radius: 8px;
+      border: 1px solid #7d9ea3;
+      background: #a8bfc3;
+      color: #2c3e42;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .count-badge {
+      font-size: 12px;
+      background: #a8bfc3;
+      border: 1px solid #7d9ea3;
+      border-radius: 20px;
+      padding: 4px 12px;
+      color: #3d5a5e;
+      white-space: nowrap;
+    }

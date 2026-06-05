@@ -53,7 +53,18 @@ const Receipts = () => {
             {!isLoading && loadedReceipts &&
                 <div className="container">
                     <h1 className='receipts_title'>Receipts</h1>
-                     <ListReceipts items={loadedReceipts} />
+
+                    <div class="toolbar">
+                        <input type="text" id="search" placeholder="Search by URL or date…" oninput="onFilter()" />
+                        <select id="status-filter" onchange="onFilter()">
+                            <option value="">All statuses</option>
+                            <option value="OK">OK</option>
+                            <option value="ERROR">Error</option>
+                        </select>
+                        <span class="count-badge" id="count-label">— entries</span>
+                    </div>
+
+                    <ListReceipts items={loadedReceipts} />
                 </div>
             }
         </React.Fragment>
