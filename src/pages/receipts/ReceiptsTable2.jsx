@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { login } from '../../shared/Login/auth.js';
 
 const COLORS = {
     pageBg: '#93a8ac',
@@ -15,26 +16,6 @@ const COLORS = {
     chipBg: '#93a8ac',
     activePg: '#4a7a80',
 };
-
-const ALL_DATA = [
-    { date: '01/06/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '31/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '31/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '30/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '30/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '29/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '25/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '24/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '23/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '23/05/2026', url: 'https://www.sefaz.rs.gov.br/NFCE/NFCE-COM.aspx?p=4...', status: 'OK' },
-    { date: '23/05/2026', url: 'https://sat.sef.sc.gov.br/tax.NET/Sat.DFe.NFCe.Web', status: 'OK' },
-    { date: '22/05/2026', url: 'https://sat.sef.sc.gov.br/tax.NET/Sat.DFe.NFCe.Web', status: 'OK' },
-    { date: '21/05/2026', url: 'https://sat.sef.sc.gov.br/tax.NET/Sat.DFe.NFCe.Web', status: 'OK' },
-    { date: '21/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '20/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-    { date: '18/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'ERROR' },
-    { date: '17/05/2026', url: 'https://dfe-portal.svrs.rs.gov.br/Dfe/QrCodeNFce?p=...', status: 'OK' },
-];
 
 function getSource(url) {
     if (url.includes('svrs.rs.gov.br')) return 'RS';
@@ -66,7 +47,6 @@ function SourceChip({ label }) {
     );
 }
 
-
 const PgBtn = ({ children, active, disabled, onClick }) => {
     const [hovered, setHovered] = React.useState(false);
     const style = {
@@ -97,8 +77,52 @@ const ReceiptsTable2 = () => {
     const [statusFilter, setStatusFilter] = React.useState('');
     const [perPage, setPerPage] = React.useState(10);
     const [currentPage, setCurrentPage] = React.useState(1);
+    const [isLoading, setIsLoading] = useState(false);
+    const [loadedReceipts, setLoadedReceipts] = useState([]);
+
+    const baseApiUrl = import.meta.env.VITE_API_URL;
+    const url = `${baseApiUrl}/api/receipts/`;
+
+    useEffect(() => {
+        const sendRequest = async () => {
+            setIsLoading(true);
+            try {
+                const email = import.meta.env.VITE_AUTH_EMAIL;
+                const pwd = import.meta.env.VITE_AUTH_PWD;
+
+                const loginResponse = await login(email, pwd);
+                const token = loginResponse.accessToken;
+                const receiptsResponse = await fetch(
+                    url, {
+                    method: 'GET',
+                    headers: {
+                        'accept': 'text/plain',
+                        'authorization': `Bearer ${token}`
+                    }
+                });
+
+                const response = await receiptsResponse.json();
+
+                setLoadedReceipts(response);
+            } catch (error) {
+                console.log(error.message);
+            }
+            setIsLoading(false);
+        }
+
+        sendRequest();
+    }, []);
 
     const filtered = React.useMemo(() => {
+
+        const ALL_DATA = loadedReceipts.map(receipt => {
+            return {
+                date: receipt.receivedDate,
+                url: receipt.url,
+                status: receipt.processed ? 'OK' : 'ERROR'
+            }
+        });
+
         return ALL_DATA.filter(r => {
             const q = search.toLowerCase();
             const matchSearch = r.date.toLowerCase().includes(q) || r.url.toLowerCase().includes(q);
@@ -232,33 +256,33 @@ const ReceiptsTable2 = () => {
 }
 
 const Row = ({ r, src, isLast }) => {
-  const [hovered, setHovered] = React.useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        display: 'grid', gridTemplateColumns: '110px 1fr 90px',
-        borderBottom: isLast ? 'none' : `1px solid ${COLORS.rowBorder}`,
-        background: hovered ? COLORS.rowHover : 'transparent',
-        transition: 'background 0.12s',
-      }}
-    >
-      <div style={{ padding: '10px 14px', fontSize: 12, color: COLORS.textSecondary, display: 'flex', alignItems: 'center', fontVariantNumeric: 'tabular-nums' }}>
-        {r.date}
-      </div>
-      <div style={{ padding: '10px 14px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center' }}>
-        <a href={r.url} target="_blank" rel="noreferrer" title={r.url}
-          style={{ color: COLORS.link, textDecoration: 'none', fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-          {r.url}
-        </a>
-        <SourceChip label={src} />
-      </div>
-      <div style={{ padding: '10px 14px', display: 'flex', alignItems: 'center' }}>
-        <StatusBadge status={r.status} />
-      </div>
-    </div>
-  );
+    const [hovered, setHovered] = React.useState(false);
+    return (
+        <div
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+            style={{
+                display: 'grid', gridTemplateColumns: '110px 1fr 90px',
+                borderBottom: isLast ? 'none' : `1px solid ${COLORS.rowBorder}`,
+                background: hovered ? COLORS.rowHover : 'transparent',
+                transition: 'background 0.12s',
+            }}
+        >
+            <div style={{ padding: '10px 14px', fontSize: 12, color: COLORS.textSecondary, display: 'flex', alignItems: 'center', fontVariantNumeric: 'tabular-nums' }}>
+                {r.date}
+            </div>
+            <div style={{ padding: '10px 14px', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center' }}>
+                <a href={r.url} target="_blank" rel="noreferrer" title={r.url}
+                    style={{ color: COLORS.link, textDecoration: 'none', fontSize: 12, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    {r.url}
+                </a>
+                <SourceChip label={src} />
+            </div>
+            <div style={{ padding: '10px 14px', display: 'flex', alignItems: 'center' }}>
+                <StatusBadge status={r.status} />
+            </div>
+        </div>
+    );
 }
 
 export default ReceiptsTable2;
