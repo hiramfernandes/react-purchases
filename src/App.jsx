@@ -8,6 +8,7 @@ import ReceiptsTable2 from './pages/receipts/ReceiptsTable2';
 import MainNavigation from './shared/Navigation/MainNavigation';
 import CreateVendor from './components/vendors/CreateVendor';
 import CreateVendorModal from './components/vendors/CreateVendorModal';
+import PurchasesContainer from './pages/purchases/PurchasesContainer';
 
 function App() {
 
@@ -19,7 +20,10 @@ function App() {
           <Route path="/" exact >
             <CreatePurchase />
           </Route>
-          <Route path="/purchases" exact >
+          <Route path="/purchases" exact>
+            <PurchasesContainer />
+          </Route>
+          <Route path="/purchases2" exact >
             <Purchases />
           </Route>
           <Route path="/vendor" exact >
