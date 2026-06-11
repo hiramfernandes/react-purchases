@@ -72,7 +72,7 @@ const PgBtn = ({ children, active, disabled, onClick }) => {
     );
 }
 
-const ReceiptsTable2 = () => {
+const ReceiptsTable = () => {
     const [search, setSearch] = React.useState('');
     const [statusFilter, setStatusFilter] = React.useState('');
     const [perPage, setPerPage] = React.useState(10);
@@ -285,4 +285,4 @@ const Row = ({ r, src, isLast }) => {
     );
 }
 
-export default ReceiptsTable2;
+export default ReceiptsTable;
