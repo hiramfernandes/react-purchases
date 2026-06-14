@@ -9,6 +9,7 @@ import MainNavigation from './shared/Navigation/MainNavigation';
 import CreateVendor from './components/vendors/CreateVendor';
 import CreateVendorModal from './components/vendors/CreateVendorModal';
 import PurchasesContainer from './pages/purchases/PurchasesContainer';
+import Merchants from './pages/merchants/Merchants';
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/receipts" exact>
             <ReceiptsTable />
+          </Route>
+          <Route path='/merchants' exact>
+            <Merchants />
           </Route>
           <Redirect to="/purchases" />
         </Switch>
