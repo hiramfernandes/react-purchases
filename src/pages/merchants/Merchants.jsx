@@ -1,9 +1,9 @@
 import './Merchants.css';
-
+import React, { useEffect, useState } from 'react';
 
 import MerchantsList from '../../components/merchants/MerchantsList';
-import { useEffect, useState } from 'react';
 import { login } from '../../shared/Login/auth';
+import LoadingSpinner from '../../shared/UiElements/LoadingSpinner';
 
 const MERCHANTS = [
   {
@@ -67,9 +67,6 @@ const Merchants = () => {
       try {
         const email = import.meta.env.VITE_AUTH_EMAIL;
         const pwd = import.meta.env.VITE_AUTH_PWD;
-
-        debugger;
-
         const loginResponse = await login(email, pwd);
         const token = loginResponse.accessToken;
 
@@ -95,7 +92,15 @@ const Merchants = () => {
   }, []);
 
   return (
-    <MerchantsList merchants={MERCHANTS} />
+    <React.Fragment>
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner />
+        </div>
+      )}
+      {!isLoading && loadedMerchants && 
+          <MerchantsList merchants={loadedMerchants} />}
+    </React.Fragment>
   )
 }
 

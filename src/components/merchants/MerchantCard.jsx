@@ -6,8 +6,8 @@ function formatCnpj(cnpj) {
 }
 
 const MerchantCard = ({ merchant }) => {
-  const displayName = merchant.TradeName || merchant.LegalName;
-  const { Street, Number, Neighborhood, City, State, Zip, Country } = merchant.Address;
+  const displayName = merchant.tradeName || merchant.legalName;
+  const { street, number, neighborhood, city, state, zip, country } = merchant.address;
 
   return (
     <div
@@ -33,9 +33,9 @@ const MerchantCard = ({ merchant }) => {
                 letterSpacing: "0.5px",
               }}
             >
-              {merchant.LegalName}
+              {merchant.legalName}
             </span>
-            {merchant.TradeName && (
+            {merchant.tradeName && (
               <span
                 style={{
                   background: "#3a3d4e",
@@ -46,7 +46,7 @@ const MerchantCard = ({ merchant }) => {
                   fontWeight: "600",
                 }}
               >
-                {merchant.TradeName}
+                {merchant.tradeName}
               </span>
             )}
             <span
@@ -58,11 +58,11 @@ const MerchantCard = ({ merchant }) => {
                 fontSize: "12px",
               }}
             >
-              {State}
+              {state}
             </span>
           </div>
           <div style={{ color: "#6b7280", fontSize: "12px", marginTop: "4px" }}>
-            ID: {merchant._id.$oid}
+            ID: {merchant.cnpj}
           </div>
         </div>
       </div>
@@ -79,16 +79,13 @@ const MerchantCard = ({ merchant }) => {
         }}
       >
         {[
-          ["Legal Name", merchant.LegalName],
-          ["Trade Name", merchant.TradeName || "—"],
-          ["CNPJ", formatCnpj(merchant.Cnpj)],
-          ["Street", Street],
-          ["Number", Number],
-          ["Neighborhood", Neighborhood],
-          ["City", City],
-          ["State", State],
-          ["Zip", Zip || "—"],
-          ["Country", Country],
+          ["Legal Name", merchant.legalName],
+          ["CNPJ", formatCnpj(merchant.cnpj)],
+          ["Street", street],
+          ["Number", number],
+          ["Neighborhood", neighborhood],
+          ["City", city],
+          ["State", state],
         ].map(([label, value]) => (
           <div key={label}>
             <div style={{ color: "#6b7280", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.8px" }}>

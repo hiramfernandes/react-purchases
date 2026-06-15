@@ -7,11 +7,11 @@ const MerchantsList = ({ merchants }) => {
   const filtered = merchants.filter((m) => {
     const q = search.toLowerCase();
     return (
-      m.LegalName.toLowerCase().includes(q) ||
-      (m.TradeName && m.TradeName.toLowerCase().includes(q)) ||
-      m.Cnpj.includes(q) ||
-      m.Address.City.toLowerCase().includes(q) ||
-      m.Address.State.toLowerCase().includes(q)
+      m.legalName.toLowerCase().includes(q) ||
+      (m.tradeName && m.tradeName.toLowerCase().includes(q)) ||
+      m.cnpj.includes(q) ||
+      m.address.city.toLowerCase().includes(q) ||
+      m.address.state.toLowerCase().includes(q)
     );
   });
 
@@ -81,7 +81,7 @@ const MerchantsList = ({ merchants }) => {
             No merchants found.
           </div>
         ) : (
-          filtered.map((m) => <MerchantCard key={m._id.$oid} merchant={m} />)
+          filtered.map((m) => <MerchantCard key={m.cnpj} merchant={m} />)
         )}
       </div>
     </div>
